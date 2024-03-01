@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Get User Location</title>
+</head>
+<body>
+
+<script>
+    // Check for geolocation support
+    if ("geolocation" in navigator) {
+        // Request permission to access location
+        navigator.geolocation.getCurrentPosition(function(position) {
+            // Get latitude and longitude
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            
+            // Do something with the coordinates, like display them on the webpage
+            document.getElementById("location").innerHTML = "Latitude: " + latitude + "<br>Longitude: " + longitude;
+        }, function(error) {
+            // Handle errors
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("User denied the request for Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Location information is unavailable.");
+                    break;
+                case error.TIMEOUT:
+                    alert("The request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred.");
+                    break;
+            }
+        });
+    } else {
+        // Geolocation not supported
+        alert("Geolocation is not supported by this browser.");
+    }
+</script>
+
+<div id="location"></div>
+
+</body>
+</html>
